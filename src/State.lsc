@@ -1,0 +1,23 @@
+import { MemoryStore, Model, attr } from '@ormojo/data'
+
+store = new MemoryStore()
+
+State = Model.extend('State', {
+  responsive: attr('string')
+  isSmall: attr('boolean')
+  isNavActive: attr('boolean')
+  activateOnEnlarge: attr('boolean')
+
+  toggleNav() ->
+    this.isNavActive = not this.isNavActive
+})
+
+store.bind(State)
+
+state = store.new('State')
+state.responsive = 'large'
+state.isSmall = false
+state.isNavActive = true
+state.activateOnEnlarge = true
+
+export {state}
