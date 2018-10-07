@@ -37,4 +37,13 @@ state.isSmall = false
 state.isNavActive = true
 state.activateOnEnlarge = true
 
-export {state}
+Code = Model.extend('Code', {
+  code: attr('string')
+})
+store.bind(Code)
+code = store.new('Code')
+code.code = 'hi mom'
+
+global.appState = { state, code }
+
+export {state, code}

@@ -14,6 +14,7 @@ import {
 } from 'semantic-ui-react'
 import { ObserveMany } from '@ormojo/react-observe'
 import ReactBreakpoints, {withBreakpoints} from 'react-breakpoints'
+import lscLogo from './lsclogo.svg'
 import cx from 'classnames'
 
 import {state} from './State'
@@ -35,8 +36,8 @@ TopMenu() ->
         Toggle menu
       </Menu.Item>
       <Menu.Item as='a' header>
-        <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} />
-        Project Name
+        <Image size='mini' src={lscLogo} style={{ marginRight: '1.5em' }} />
+        lscdiag
       </Menu.Item>
       <Menu.Item as='a'>Home</Menu.Item>
 

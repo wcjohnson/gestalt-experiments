@@ -25,6 +25,7 @@
 .App-column.right {
   flex: 1;
   max-height: 100vh;
+  min-width: 0;
 }
 
 .App-column.right .top {

@@ -1,0 +1,43 @@
+import React from 'react'
+
+// HACK: can't load Ace during ssr
+let AceEditor = -> null
+if typeof window != 'undefined' and window:
+  now AceEditor = require('./AceEditor').default
+  require('brace')
+  require('brace/mode/jsx')
+  require('./AceLscHighlighting')
+  require('brace/theme/tomorrow')
+  require('brace/theme/tomorrow_night')
+
+export Editor({
+  code, syntax = 'lsc', readOnly, numLines
+  markers, name, onChange, theme='dark'
+}) ->
+  if not code: now code = ''
+  realTheme = match theme:
+    | 'dark': 'tomorrow_night'
+    | 'light': 'tomorrow'
+    | else: 'tomorrow_night'
+
+  now numLines = Math.max(numLines or code.split("\n").length or 1, 5)
+
+  <AceEditor
+    mode={syntax}
+    theme={realTheme}
+    value={code}
+    height='100%'
+    width='100%'
+    minLines={numLines}
+    maxLines={numLines}
+    tabSize={2}
+    readOnly={readOnly}
+    name={name}
+    markers={markers}
+    highlightActiveLine
+    onChange={onChange}
+    style={{
+      fontSize: 16
+      fontFamily: '"Fira Code", Monaco, Menlo, monospace'
+    }}
+  />

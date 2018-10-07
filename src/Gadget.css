@@ -9,20 +9,37 @@
   overflow: hidden;
   border-radius: 10px 0px 0px 10px;
   flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
 }
 
-.Gadget .Left .Header {
+.Gadget .Right {
+  overflow: hidden;
+  border-radius: 0px 10px 10px 0px;
+  flex: 0 0 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(236,236,236);
+}
+
+.Gadget .Header {
   padding: 0px 10px;
-  background: rgb(32,35,42);
+  flex: 0;
 }
 
 .Gadget .Container {
   width: 100%;
+  flex: 1;
   max-height: 340px;
   margin: 0;
   padding: 0.1px 0px 20px 0px;
   border-radius: 0;
   overflow: auto;
+}
+
+.Gadget .Left .Container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.25);
+  transition: color .2s ease;
 }
 
 .Gadget .HeaderText {
@@ -31,4 +48,14 @@
   line-height: 3;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.Gadget .Container .Code {
+  outline: 0;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  height: auto;
+  margin: 1rem 0 0 1rem;
 }
