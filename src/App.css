@@ -12,8 +12,14 @@
   flex-direction: column;
 }
 
-.App-column.left {
+.responsive-lg .App-column.left {
   width: 250px;
+  flex: none;
+}
+
+.responsive-sm .App-column.left {
+  flex: 1;
+  height: 100vh;
 }
 
 .App-column.right {

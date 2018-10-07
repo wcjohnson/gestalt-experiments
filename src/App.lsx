@@ -10,14 +10,19 @@ import {
   List
   Menu
   Segment
+  Icon
 } from 'semantic-ui-react'
 import { ObserveMany } from '@ormojo/react-observe'
+import ReactBreakpoints, {withBreakpoints} from 'react-breakpoints'
+import cx from 'classnames'
 
 import {state} from './State'
+import { Gadget } from './Gadget'
 
-responsive$ = state.observe('responsive')
+isSmall$ = state.observe('isSmall')
 isNavActive$ = state.observe('isNavActive')
 toggleMenu() -> state.toggleNav()
+closeMenu() -> state.setNavActive(false)
 
 Paragraph() ->
   <p>
@@ -59,40 +64,22 @@ TopMenu() ->
 
 Sidebar() ->
     <Menu fluid inverted vertical borderless compact  style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, borderRadius: 0 }}>
-        <Menu.Item>
-            <strong>
-              Semantic UI React &nbsp;
-              <small>
-                <em>1.0</em>
-              </small>
-            </strong>
-          </Menu.Item>
-    </Menu>
 
-TopLevel() ->
-  <ObserveMany responsive={responsive$} menuOpen={isNavActive$}>{
-      ({responsive, menuOpen}) ->
-        <div className="App-container">
-          {if menuOpen.value:
-            <div className="App-column left">
-              <Sidebar />
-            </div>
-          }
-          <div className="App-column right">
-            <div className="top">
-              <TopMenu />
-            </div>
-            <div className="bottom">
-              Responsive {JSON.stringify(responsive.value)}
-              menuOpen {JSON.stringify(menuOpen.value)}
-              <Content />
-            </div>
-          </div>
-        </div>
-  }</ObserveMany>
+      <Menu.Item onClick={closeMenu}>
+        <Icon name="close" />
+        <strong>
+          Semantic UI React &nbsp;
+          <small>
+            <em>1.0</em>
+          </small>
+        </strong>
+      </Menu.Item>
+
+    </Menu>
 
 Content() ->
   <>
+      <Gadget />
       <Container text style={{ marginTop: '7em' }}>
         <Header as='h1'>Semantic UI React Fixed Template</Header>
         <p>This is a basic fixed menu template using fixed size containers.</p>
@@ -102,7 +89,7 @@ Content() ->
 
 
 
-        {...for idx i in Array(10): <Paragraph />}
+        {...for idx i in Array(5): <Paragraph key={i} />}
       </Container>
 
       <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
@@ -165,8 +152,58 @@ Content() ->
       </Segment>
   </>
 
+
+TopLevel() ->
+  <ObserveMany isSmall={isSmall$} menuOpen={isNavActive$}>{
+    ({ isSmall: {value: isSmall}, menuOpen: { value: menuOpen } }) ->
+      <div className={cx("App-container", if isSmall: "responsive-sm" else: "responsive-lg")}>
+        {if menuOpen:
+          <div className="App-column left">
+            <Sidebar />
+          </div>
+        }
+        {if (not menuOpen) or (not isSmall):
+          <div className="App-column right">
+            <div className="top">
+              <TopMenu />
+            </div>
+            <div className="bottom">
+              Responsive {JSON.stringify(isSmall)}
+              menuOpen {JSON.stringify(menuOpen)}
+              <Content />
+            </div>
+          </div>
+        }
+      </div>
+  }</ObserveMany>
+
+
+breakpoints = {
+  mobile: 512
+  nonMobile: 513
+}
+
+BreakpointStateInjector = withBreakpoints(
+  class BreakpointStateInjector extends React.PureComponent:
+    constructor(props) ->
+      super(props)
+      this.update(props)
+
+    componentDidUpdate() ->
+      this.update(this.props)
+
+    update(props) ->
+      { currentBreakpoint } = props
+      state.setMobile(currentBreakpoint == 'mobile')
+
+    render() ->
+      <TopLevel />
+)
+
 class App extends Component:
   render() ->
-    <TopLevel />
+    <ReactBreakpoints breakpoints={breakpoints}>
+      <BreakpointStateInjector />
+    </ReactBreakpoints>
 
 export default App

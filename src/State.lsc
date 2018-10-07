@@ -10,6 +10,23 @@ State = Model.extend('State', {
 
   toggleNav() ->
     this.isNavActive = not this.isNavActive
+
+  setNavActive(flg) ->
+    this.isNavActive = flg
+
+  setMobile(isMobile): void ->
+    if isMobile:
+      this.responsive = 'small'
+      this.isSmall = true
+      if this.isNavActive:
+        this.isNavActive = false
+        this.activateOnEnlarge = true
+    else:
+      this.responsive = 'large'
+      this.isSmall = false
+      if this.activateOnEnlarge:
+        this.isNavActive = true
+        this.activateOnEnlarge = false
 })
 
 store.bind(State)

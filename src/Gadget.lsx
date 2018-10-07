@@ -1,0 +1,35 @@
+import React from 'react'
+
+import './Gadget.css'
+
+HeaderText({color, children}) ->
+  <div className="HeaderText" style={{color}}>
+    {children}
+  </div>
+
+
+        // <div style={{color: '#999', fontSize: 14, fontWeight: 700, lineHeight: 3, textTransform: 'uppercase', letterSpacing: '0.08em'}}>
+        //   Live Input
+        // </div>
+export Gadget() ->
+  <div className="Gadget Root">
+    <div className="Left">
+      <div className="Header">
+        <HeaderText color="#999">
+          Live Input
+        </HeaderText>
+      </div>
+      <div style={{width: '100%', maxHeight: 340, margin: 0, padding: '0.1px 0px 20px 0px', borderRadius: 0, color: 'white', background: 'rgb(40,44,52)', overflow: 'auto'}}>
+        <pre style={{outline: 0, fontSize: 14, lineHeight: '20px', whiteSpace: 'pre-wrap', wordBreak: 'break-word', height: 'auto', margin: '1rem 0 0 1rem'}}>
+          Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream Row row row your boat gently down the stream
+        </pre>
+      </div>
+    </div>
+    <div style={{overflow: 'hidden', borderWidth: 1, borderStyle: 'solid', borderColor: 'rgb(236,236,236)', borderRadius: '0px 10px 10px 0px', flex: '0 0 50%'}}>
+      <div style={{backgroundColor: 'rgb(236,236,236)', padding: '0px 10px'}}>
+        <div style={{color: 'rgb(109,109,109)', fontSize: 14, fontWeight: 700, lineHeight: 3, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          Output
+        </div>
+      </div>
+    </div>
+  </div>
